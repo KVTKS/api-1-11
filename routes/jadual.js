@@ -91,6 +91,22 @@ router.get('/getJadualID',  (req, res) => {
     });
 });
 
+router.get('/IDSUB',  (req, res) => {
+    var query = req.query;
+    // "SELECT idj,id_pen FROM jadual  WHERE sesi=1 AND kelas=1 AND HARI='ISNIN' AND slot=1"
+    var sql = "SELECT id_sub FROM subjek WHERE subjek="+query.subjek+ " AND kod="+query.kod;
+
+    connection.query(sql, function (err, rows, field) {
+        if (!err) {
+           console.log('rows: ', rows);
+            res.json(rows);
+        } else {
+            throw err;
+        }
+    });
+});
+
+
 router.post("/saveKehadiran", function(req, res) {
     console.log(req.body);
     res.json(req.body);
