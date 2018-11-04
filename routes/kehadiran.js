@@ -2,9 +2,10 @@ const {connection, router} = require('../config');
 
 //find Kehadiran
 router.get('/kehadiran',  (req, res) => {
-    var sql = "SELECT * FROM kehadiran";
+    var query = req.query;
+    validation="SELECT * FROM ke as K JOIN pelajar as P on K.id_p=P.id_pelajar WHERE idj="+query.idj+" AND tarikh='"+query.date+"'";
 
-    connection.query(sql, function (err, rows, field) {
+    connection.query(validation, function (err, rows, field) {
         if (!err) {
 //            console.log('rows: ', rows);
             res.json(rows);
