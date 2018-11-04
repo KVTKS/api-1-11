@@ -1,8 +1,8 @@
 const { connection, router } = require('../config');
 
 router.post("/loginpelajar", function(req, res) {
-  var ic = req.body.ic;
-  var ndp = req.body.ndp;
+  var ic = req.body.nama_pelajar;
+  var ndp = req.body.no_ndp;
   connection.query(
     "SELECT * FROM pelajar WHERE ic = ?",
     [ic],
@@ -17,7 +17,7 @@ router.post("/loginpelajar", function(req, res) {
       } else {
         // console.log('The solution is: ', results);
         if (results.length > 0) {
-          if (results[0].no_ndp == password) {
+          if (results[0].no_ndp == ndp) {
             res.send({
               code: 200,
               success: "login sucessfull",
