@@ -45,4 +45,19 @@ router.get('/kehadiran/pelajar',  (req, res) => {
     });
 });
 
+router.get('/kehadiran/pelajarBySubjek',  (req, res) => {
+    var query = req.query;
+
+    var sql = "SELECT a.*, b.id_sub, b.sesi, b.kelas, c.subjek, d.nama_pelajar FROM ke a INNER JOIN jadual b ON a.idj=b.idj INNER JOIN subjek c ON b.id_sub=c.idsub INNER JOIN pelajar d ON a.id_p=d.id_pelajar WHERE b.id_pen="+query.id;
+
+    connection.query(sql, function (err, rows, field) {
+        if (!err) {
+//            console.log('rows: ', rows);
+            res.json(rows);
+        } else {
+            throw err;
+        }
+    });
+});
+
 module.exports = router;

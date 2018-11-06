@@ -13,5 +13,18 @@ router.get('/subjek',  (req, res) => {
         }
     });
 });
+//subjek by pengajar
+router.get('/subjek/pengajar',  (req, res) => {
+    var sql = "SELECT  DISTINCT b.subjek, b.idsub FROM jadual a INNER JOIN subjek b ON a.id_sub-b.idsub WHERE a.id_pen="+req.query.id+" GROUP BY b.idsub";
+
+    connection.query(sql, function (err, rows, field) {
+        if (!err) {
+//            console.log('rows: ', rows);
+            res.json(rows);
+        } else {
+            throw err;
+        }
+    });
+});
 
 module.exports = router;
